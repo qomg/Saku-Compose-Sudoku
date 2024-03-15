@@ -24,9 +24,9 @@ class SettingViewModel @Inject constructor(
 	
 	init {
 		viewModelScope.launch {
-			userPreferencesRepository.getUserPreferences.collect { preferences ->
-				remainingNumberEnabled = preferences.remainingNumberEnabled
-				highlightNumberEnabled = preferences.highlightNumberEnabled
+			userPreferencesRepository.getSettingsPreference.collect { settings ->
+				remainingNumberEnabled = settings.remainingNumberEnabled
+				highlightNumberEnabled = settings.highlightNumberEnabled
 			}
 		}
 	}

@@ -8,6 +8,6 @@ message UserPreferences {
   string boardState = 3;
   string exportBoardPath = 4;
   string solvedBoardState = 5;
-  bool highlightNumberEnabled = 6;
-  bool remainingNumberEnabled = 7;
+  optional bool highlightNumberEnabled = 6;
+  optional bool remainingNumberEnabled = 7;
 }

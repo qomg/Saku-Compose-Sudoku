@@ -97,7 +97,7 @@ fun SudokuBoard(
 							.size(gridCellSize)
 							.border(
 								width = borderThickness,
-								color = Color.Black
+								color = Color.Gray
 							)
 					) {
 						itemsIndexed(cells.getOrNull(i)?.subCells ?: emptyList()) { i, cell ->
@@ -125,7 +125,7 @@ fun SudokuBoard(
 							.size(gridCellSize)
 							.border(
 								width = borderThickness,
-								color = Color.Black
+								color = Color.Gray
 							)
 					) {
 						itemsIndexed(cells.getOrNull(i + 3)?.subCells ?: emptyList()) { i, cell ->
@@ -153,7 +153,7 @@ fun SudokuBoard(
 							.size(gridCellSize)
 							.border(
 								width = borderThickness,
-								color = Color.Black
+								color = Color.Gray
 							)
 					) {
 						itemsIndexed(cells.getOrNull(i + 6)?.subCells ?: emptyList()) { i, cell ->
@@ -202,7 +202,7 @@ private fun CellBox(
 			if (selected) MaterialTheme.colorScheme.primary
 			else {
 				if (cell.missingNum) MaterialTheme.colorScheme.background
-				else MaterialTheme.colorScheme.surfaceVariant
+				else MaterialTheme.colorScheme.background//MaterialTheme.colorScheme.surfaceVariant
 			}
 		} else MaterialTheme.colorScheme.background
 	)
@@ -250,7 +250,7 @@ private fun CellBox(
 				)
 				.padding(3.dp)
 				.drawBehind {
-					if (!forPrint) {
+					if (!forPrint || win) {
 						drawCircle(
 							color = cellBackground
 						)

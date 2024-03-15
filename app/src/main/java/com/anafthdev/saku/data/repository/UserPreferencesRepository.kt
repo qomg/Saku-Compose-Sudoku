@@ -4,6 +4,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.core.handlers.ReplaceFileCorruptionHandler
 import com.anafthdev.saku.UserPreferences
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class UserPreferencesRepository @Inject constructor(
@@ -82,9 +83,21 @@ class UserPreferencesRepository @Inject constructor(
 	
 	val getUserPreferences: Flow<UserPreferences> = userPreferencesDataStore.data
 
+	val getSettingsPreference: Flow<SettingsPreference> = getUserPreferences.map {
+		SettingsPreference(
+			it.highlightNumberEnabled ?: true,
+			it.remainingNumberEnabled ?: true,
+		)
+	}
+
 	companion object {
 		val corruptionHandler = ReplaceFileCorruptionHandler(
 			produceNewData = { UserPreferences() }
+		)
+
+		data class SettingsPreference(
+			val highlightNumberEnabled: Boolean,
+			val remainingNumberEnabled: Boolean,
 		)
 	}
 

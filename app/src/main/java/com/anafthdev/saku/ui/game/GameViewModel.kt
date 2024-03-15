@@ -86,19 +86,26 @@ class GameViewModel @Inject constructor(
 	val solvedBoard = mutableStateListOf<Cell>()
 	val initialBoard = mutableStateListOf<Cell>()
 	val remainingNumbers = mutableStateListOf<RemainingNumber>()
-	
+
+	data class State(
+		val preferences: UserPreferences,
+		val settings: UserPreferencesRepository.Companion.SettingsPreference,
+		val use: Boolean
+	)
+
 	init {
 		viewModelScope.launch(Dispatchers.IO) {
 			combine(
 				userPreferencesRepository.getUserPreferences,
+				userPreferencesRepository.getSettingsPreference,
 				useLastBoardState
-			) { preferences, use ->
-				preferences to use
-			}.collect { (preferences, use) ->
+			) { preferences, settings, use ->
+				State(preferences, settings, use)
+			}.collect { (preferences, settings, use) ->
 				withContext(Dispatchers.Main) {
 					userPreferences = preferences
-					remainingNumberEnabled = preferences.remainingNumberEnabled
-					highlightNumberEnabled = preferences.highlightNumberEnabled
+					remainingNumberEnabled = settings.remainingNumberEnabled
+					highlightNumberEnabled = settings.highlightNumberEnabled
 					
 					if (use and !hasWin) {
 						second = preferences.time
