@@ -12,7 +12,8 @@ import com.anafthdev.saku.data.model.Score
 	entities = [
 		Score::class
 	],
-	version = 1
+	version = 1,
+	exportSchema =false
 )
 @TypeConverters(DatabaseTypeConverter::class)
 abstract class AppDatabase: RoomDatabase() {
